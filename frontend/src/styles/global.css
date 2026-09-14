@@ -37,7 +37,7 @@
      #8a8478 su #f7f3e8 dava ~2.3:1 (troppo basso, testo quasi invisibile).
      #6b6459 su #f7f3e8 da ~4.6:1 (leggibile). */
   --color-label: #6b6459;
-  --font-display: 'Universo Sans Display', 'Oswald', sans-serif;
+  --font-display: 'Almarose', 'Oswald', sans-serif;
   --font-sans: 'Merriweather', serif;
   --max-width: 1400px;
   --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
