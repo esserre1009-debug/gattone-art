@@ -1,20 +1,20 @@
 @font-face {
-  font-family: 'Almarose';
-  src: url('/fonts/Almarose-Regular.otf') format('opentype');
+  font-family: 'Hanson';
+  src: url('/fonts/Hanson-Hairline.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Almarose';
-  src: url('/fonts/Almarose-Medium.otf') format('opentype');
+  font-family: 'Hanson';
+  src: url('/fonts/Hanson-Bold.otf') format('opentype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Almarose';
-  src: url('/fonts/Almarose-Bold.otf') format('opentype');
+  font-family: 'Hanson';
+  src: url('/fonts/Hanson-Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -37,7 +37,7 @@
      #8a8478 su #f7f3e8 dava ~2.3:1 (troppo basso, testo quasi invisibile).
      #6b6459 su #f7f3e8 da ~4.6:1 (leggibile). */
   --color-label: #6b6459;
-  --font-display: 'Almarose', 'Oswald', sans-serif;
+  --font-display: 'Hanson', 'Oswald', sans-serif;
   --font-sans: 'Merriweather', serif;
   --max-width: 1400px;
   --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
