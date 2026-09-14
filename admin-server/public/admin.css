@@ -1,0 +1,68 @@
+* { box-sizing: border-box; font-family: Arial, sans-serif; }
+body { margin: 0; background: #f7f3e8; color: #1a1a1a; }
+.admin-header { background: #14213d; color: #fff; padding: 20px 32px; }
+.admin-header h1 { margin: 0; font-size: 1.4rem; }
+.admin-header small { font-size: 0.75rem; opacity: 0.8; margin-left: 12px; }
+
+.admin-tabs { display: flex; gap: 8px; padding: 16px 32px; border-bottom: 1px solid #e6ddc4; background: #fff; flex-wrap: wrap; }
+.tab-btn { padding: 10px 20px; border: 1px solid #e6ddc4; background: #fff; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
+.tab-btn.active { background: #14213d; color: #fff; border-color: #14213d; }
+
+.admin-main { padding: 32px; max-width: 1100px; margin: 0 auto; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+
+.hint { color: #6b6459; font-size: 0.85rem; margin-bottom: 24px; }
+
+.btn { padding: 10px 20px; border-radius: 4px; font-size: 0.85rem; cursor: pointer; border: 1px solid transparent; }
+.btn-primary { background: #14213d; color: #fff; }
+.btn-primary:hover { background: #c9a227; color: #14213d; }
+.btn-outline { background: #fff; border: 1px solid #1a1a1a; color: #1a1a1a; }
+.btn-outline:hover { border-color: #c9a227; color: #14213d; }
+.btn-danger { background: #fff; border: 1px solid #b22234; color: #b22234; }
+.btn-danger:hover { background: #b22234; color: #fff; }
+
+.artworks-table { width: 100%; border-collapse: collapse; background: #fff; }
+.artworks-table th, .artworks-table td { text-align: left; padding: 12px 14px; border-bottom: 1px solid #e6ddc4; font-size: 0.88rem; }
+.artworks-table th { color: #6b6459; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em; }
+
+.category-group { margin-bottom: 32px; }
+.tag-list { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 12px 0; }
+.tag-list li { background: #f1ece0; padding: 8px 14px; border-radius: 999px; font-size: 0.82rem; display: flex; align-items: center; gap: 8px; }
+.tag-list li button { border: none; background: none; color: #b22234; cursor: pointer; font-weight: bold; }
+.add-row { display: flex; gap: 8px; }
+.add-row input { padding: 10px 14px; border: 1px solid #e6ddc4; border-radius: 4px; flex: 1; max-width: 280px; }
+
+.flag-row { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+.switch { position: relative; display: inline-block; width: 46px; height: 24px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; inset: 0; background: #ccc; border-radius: 24px; transition: 0.3s; }
+.slider::before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s; }
+.switch input:checked + .slider { background: #c9a227; }
+.switch input:checked + .slider::before { transform: translateX(22px); }
+
+.instagram-config { margin-top: 32px; padding-top: 24px; border-top: 1px solid #e6ddc4; }
+.instagram-config label { display: block; margin-bottom: 14px; font-size: 0.85rem; }
+.instagram-config input { width: 100%; max-width: 420px; padding: 10px; margin-top: 6px; border: 1px solid #e6ddc4; border-radius: 4px; font-size: 0.9rem; }
+
+.export-row { margin-top: 32px; padding-top: 24px; border-top: 1px solid #e6ddc4; }
+
+.hero-slide-editor { border: 1px solid #e6ddc4; padding: 20px; margin-bottom: 20px; border-radius: 6px; background: #fff; }
+.hero-slide-editor label { display: block; margin-bottom: 14px; font-size: 0.85rem; }
+.hero-slide-editor input, .hero-slide-editor textarea {
+  width: 100%; padding: 10px; margin-top: 6px; border: 1px solid #e6ddc4; border-radius: 4px; font-size: 0.9rem;
+}
+.hero-preview { max-width: 220px; display: block; margin-bottom: 12px; border: 1px solid #e6ddc4; }
+
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; }
+.modal.hidden { display: none; }
+.modal-content { background: #fff; padding: 32px; border-radius: 6px; width: 560px; max-height: 90vh; overflow-y: auto; }
+.modal-content h2 { margin-top: 0; }
+.modal-content label { display: block; margin-bottom: 14px; font-size: 0.85rem; }
+.modal-content input, .modal-content select, .modal-content textarea {
+  width: 100%; padding: 10px; margin-top: 6px; border: 1px solid #e6ddc4; border-radius: 4px; font-size: 0.9rem;
+}
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.upload-status { font-size: 0.8rem; color: #14213d; margin: -6px 0 14px; min-height: 16px; }

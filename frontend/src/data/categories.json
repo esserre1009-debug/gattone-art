@@ -1,0 +1,17 @@
+{
+  "subjects": [
+    "Cinema & Vintage",
+    "Comics & Supereroi",
+    "Pin-up Art"
+  ],
+  "availabilities": [
+    "Disponibile",
+    "Riservato",
+    "Venduto"
+  ],
+  "sizeCategories": [
+    "Piccolo",
+    "Medio",
+    "Grande"
+  ]
+}

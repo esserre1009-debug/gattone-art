@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "image": "/images/artworks/pinup.jpeg",
+    "eyebrow": "Collezione",
+    "title": "Collage, colore e cultura pop",
+    "text": "Opere originali che uniscono cinema vintage, pop art e pin-up, realizzate a mano.",
+    "buttonText": "Esplora la galleria",
+    "buttonLink": "/galleria"
+  },
+  {
+    "id": "2",
+    "image": "/images/artworks/efficiency-excellency.jpeg",
+    "eyebrow": "Fatto a mano",
+    "title": "Ogni pezzo è unico",
+    "text": "Tecnica di collage e assemblaggio, composizioni originali su supporto rigido.",
+    "buttonText": "Scopri il catalogo",
+    "buttonLink": "/galleria"
+  },
+  {
+    "id": "3",
+    "image": "/images/artworks/mujeres.jpeg",
+    "eyebrow": "Su richiesta",
+    "title": "Porta a casa un'opera originale",
+    "text": "Contattaci per informazioni su disponibilità e acquisto delle opere.",
+    "buttonText": "Vedi tutte le opere",
+    "buttonLink": "/galleria"
+  }
+]

@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<title>gattone.art - Pannello Admin</title>
+<link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+<header class="admin-header">
+  <h1>gattone.art <small>pannello admin (solo locale, dati su Supabase)</small></h1>
+</header>
+
+<nav class="admin-tabs">
+  <button class="tab-btn active" data-tab="opere">Opere</button>
+  <button class="tab-btn" data-tab="hero">Hero Slider</button>
+  <button class="tab-btn" data-tab="categorie">Categorie</button>
+  <button class="tab-btn" data-tab="impostazioni">Impostazioni</button>
+</nav>
+
+<main class="admin-main">
+
+  <section id="tab-opere" class="tab-panel active">
+    <div class="panel-header">
+      <h2>Opere</h2>
+      <button id="btn-new-artwork" class="btn btn-primary">+ Nuova opera</button>
+    </div>
+    <table class="artworks-table">
+      <thead>
+        <tr>
+          <th>Titolo</th>
+          <th>Soggetto</th>
+          <th>Dimensioni</th>
+          <th>Prezzo</th>
+          <th>Disponibilita</th>
+          <th>Azioni</th>
+        </tr>
+      </thead>
+      <tbody id="artworks-tbody"></tbody>
+    </table>
+  </section>
+
+  <section id="tab-hero" class="tab-panel">
+    <h2>Hero Slider (Home)</h2>
+    <p class="hint">Configura le 3 slide mostrate in home. Carica l'immagine direttamente dal tuo computer.</p>
+
+    <div class="hero-slide-editor">
+      <h3>Slide 1</h3>
+      <input type="hidden" id="hero-image-path-1" />
+      <img id="hero-preview-1" class="hero-preview" style="display:none" />
+      <label>Immagine
+        <input type="file" id="hero-image-upload-1" accept="image/*" />
+      </label>
+      <label>Eyebrow (testo piccolo sopra il titolo)
+        <input type="text" id="hero-eyebrow-1" placeholder="Collezione" />
+      </label>
+      <label>Titolo
+        <input type="text" id="hero-title-1" />
+      </label>
+      <label>Testo
+        <textarea id="hero-text-1" rows="2"></textarea>
+      </label>
+      <label>Testo pulsante
+        <input type="text" id="hero-buttontext-1" placeholder="Esplora la galleria" />
+      </label>
+      <label>Link pulsante (es. /galleria oppure https://...)
+        <input type="text" id="hero-buttonlink-1" placeholder="/galleria" />
+      </label>
+    </div>
+
+    <div class="hero-slide-editor">
+      <h3>Slide 2</h3>
+      <input type="hidden" id="hero-image-path-2" />
+      <img id="hero-preview-2" class="hero-preview" style="display:none" />
+      <label>Immagine
+        <input type="file" id="hero-image-upload-2" accept="image/*" />
+      </label>
+      <label>Eyebrow
+        <input type="text" id="hero-eyebrow-2" />
+      </label>
+      <label>Titolo
+        <input type="text" id="hero-title-2" />
+      </label>
+      <label>Testo
+        <textarea id="hero-text-2" rows="2"></textarea>
+      </label>
+      <label>Testo pulsante
+        <input type="text" id="hero-buttontext-2" />
+      </label>
+      <label>Link pulsante
+        <input type="text" id="hero-buttonlink-2" />
+      </label>
+    </div>
+
+    <div class="hero-slide-editor">
+      <h3>Slide 3</h3>
+      <input type="hidden" id="hero-image-path-3" />
+      <img id="hero-preview-3" class="hero-preview" style="display:none" />
+      <label>Immagine
+        <input type="file" id="hero-image-upload-3" accept="image/*" />
+      </label>
+      <label>Eyebrow
+        <input type="text" id="hero-eyebrow-3" />
+      </label>
+      <label>Titolo
+        <input type="text" id="hero-title-3" />
+      </label>
+      <label>Testo
+        <textarea id="hero-text-3" rows="2"></textarea>
+      </label>
+      <label>Testo pulsante
+        <input type="text" id="hero-buttontext-3" />
+      </label>
+      <label>Link pulsante
+        <input type="text" id="hero-buttonlink-3" />
+      </label>
+    </div>
+
+    <button class="btn btn-primary" id="btn-save-hero">Salva slide Hero</button>
+  </section>
+
+  <section id="tab-categorie" class="tab-panel">
+    <h2>Categorie</h2>
+    <div class="category-group">
+      <h3>Soggetti</h3>
+      <ul id="list-subjects" class="tag-list"></ul>
+      <div class="add-row">
+        <input type="text" id="input-new-subject" placeholder="Nuovo soggetto" />
+        <button class="btn btn-outline" id="btn-add-subject">Aggiungi</button>
+      </div>
+    </div>
+    <div class="category-group">
+      <h3>Disponibilita</h3>
+      <ul id="list-availabilities" class="tag-list"></ul>
+      <div class="add-row">
+        <input type="text" id="input-new-availability" placeholder="Nuova disponibilita" />
+        <button class="btn btn-outline" id="btn-add-availability">Aggiungi</button>
+      </div>
+    </div>
+    <div class="category-group">
+      <h3>Fasce dimensione</h3>
+      <ul id="list-sizecategories" class="tag-list"></ul>
+      <div class="add-row">
+        <input type="text" id="input-new-sizecategory" placeholder="Nuova fascia dimensione" />
+        <button class="btn btn-outline" id="btn-add-sizecategory">Aggiungi</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-impostazioni" class="tab-panel">
+    <h2>Impostazioni</h2>
+    <div class="flag-row">
+      <label class="switch">
+        <input type="checkbox" id="flag-bio" />
+        <span class="slider"></span>
+      </label>
+      <span>Attiva sezione Biografia</span>
+    </div>
+    <div class="flag-row">
+      <label class="switch">
+        <input type="checkbox" id="flag-contact" />
+        <span class="slider"></span>
+      </label>
+      <span>Attiva pagina Contatti</span>
+    </div>
+    <div class="flag-row">
+      <label class="switch">
+        <input type="checkbox" id="flag-instagram" />
+        <span class="slider"></span>
+      </label>
+      <span>Attiva sezione Instagram in Home</span>
+    </div>
+
+    <div class="instagram-config">
+      <h3>Collegamento Instagram</h3>
+      <label>Link profilo Instagram (es. https://instagram.com/gattone.art)
+        <input type="text" id="instagram-profile-url" placeholder="https://instagram.com/gattone.art" />
+      </label>
+      <label>Link embed feed (opzionale - per mostrare foto reali, es. SnapWidget)
+        <input type="text" id="instagram-embed-url" placeholder="https://snapwidget.com/embed/123456" />
+      </label>
+      <button class="btn btn-outline" id="btn-save-instagram">Salva collegamento Instagram</button>
+    </div>
+
+    <div class="export-row">
+      <h3>Esporta dati</h3>
+      <a href="/api/export/artworks" class="btn btn-outline" download>Scarica artworks.json</a>
+    </div>
+  </section>
+
+</main>
+
+<div id="artwork-modal" class="modal hidden">
+  <div class="modal-content">
+    <h2 id="modal-title">Nuova opera</h2>
+    <form id="artwork-form">
+      <input type="hidden" id="field-id" />
+      <label>Titolo<input type="text" id="field-title" required /></label>
+      <label>Soggetto<select id="field-subject"></select></label>
+      <label>Disponibilita<select id="field-availability"></select></label>
+      <label>Fascia dimensione<select id="field-sizecategory"></select></label>
+      <label>Orientamento
+        <select id="field-orientation">
+          <option value="square">Quadrato</option>
+          <option value="horizontal">Orizzontale</option>
+          <option value="vertical">Verticale</option>
+        </select>
+      </label>
+      <label>Dimensioni (testo, es. 40 x 40 cm)<input type="text" id="field-dimensions" /></label>
+      <label>Prezzo (numero, es. 260)<input type="number" id="field-price" /></label>
+      <label>Prezzo visualizzato (es. € 260)<input type="text" id="field-pricedisplay" /></label>
+      <label>Descrizione<textarea id="field-description" rows="4"></textarea></label>
+
+      <label>Carica immagine dal computer
+        <input type="file" id="field-image-upload" accept="image/*" />
+      </label>
+      <div id="upload-status" class="upload-status"></div>
+
+      <label>Immagini (un percorso per riga, aggiunte automaticamente con l'upload)
+        <textarea id="field-images" rows="4" placeholder="https://xxxx.supabase.co/storage/v1/object/public/artwork-images/artworks/nome-file.jpg"></textarea>
+      </label>
+
+      <div class="modal-actions">
+        <button type="button" id="btn-cancel" class="btn btn-outline">Annulla</button>
+        <button type="submit" class="btn btn-primary">Salva</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

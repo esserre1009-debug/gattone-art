@@ -1,0 +1,178 @@
+[
+  {
+    "id": "1",
+    "title": "La Stella Piu Bella",
+    "subject": "Pin-up Art",
+    "availability": "Disponibile",
+    "sizeCategory": "Piccolo",
+    "orientation": "vertical",
+    "dimensions": "24 x 30 cm",
+    "price": 150,
+    "priceDisplay": "€ 150",
+    "description": "Opera realizzata con tecnica di collage e assemblaggio su supporto rigido.",
+    "images": [
+      "/images/artworks/la-stella-piu-bella.jpeg"
+    ],
+    "cover": "/images/artworks/la-stella-piu-bella.jpeg"
+  },
+  {
+    "id": "2",
+    "title": "Pane e Amore e...",
+    "subject": "Cinema & Vintage",
+    "availability": "Disponibile",
+    "sizeCategory": "Medio",
+    "orientation": "square",
+    "dimensions": "40 x 40 cm",
+    "price": 260,
+    "priceDisplay": "€ 260",
+    "description": "Opera realizzata con tecnica di collage e assemblaggio su supporto rigido.",
+    "images": [
+      "/images/artworks/pane-amore.png"
+    ],
+    "cover": "/images/artworks/pane-amore.png"
+  },
+  {
+    "id": "3",
+    "title": "A Qualcuno Piace Caldo",
+    "subject": "Cinema & Vintage",
+    "availability": "Disponibile",
+    "sizeCategory": "Medio",
+    "orientation": "square",
+    "dimensions": "40 x 40 cm",
+    "price": 260,
+    "priceDisplay": "€ 260",
+    "description": "Opera realizzata con tecnica di collage e assemblaggio su supporto rigido.",
+    "images": [
+      "/images/artworks/qualcuno-piace-caldo.jpeg"
+    ],
+    "cover": "/images/artworks/qualcuno-piace-caldo.jpeg"
+  },
+  {
+    "id": "4",
+    "title": "Cat on a Hot Tin Roof",
+    "subject": "Cinema & Vintage",
+    "availability": "Disponibile",
+    "sizeCategory": "Medio",
+    "orientation": "square",
+    "dimensions": "40 x 40 cm",
+    "price": 260,
+    "priceDisplay": "€ 260",
+    "description": "Opera realizzata con tecnica di collage e assemblaggio su supporto rigido.",
+    "images": [
+      "/images/artworks/cat-on-hot-tin-roof.jpeg"
+    ],
+    "cover": "/images/artworks/cat-on-hot-tin-roof.jpeg"
+  },
+  {
+    "id": "5",
+    "title": "Ladyhawke",
+    "subject": "Cinema & Vintage",
+    "availability": "Disponibile",
+    "sizeCategory": "Medio",
+    "orientation": "square",
+    "dimensions": "40 x 40 cm",
+    "price": 260,
+    "priceDisplay": "€ 260",
+    "description": "Opera realizzata con tecnica di collage e assemblaggio su supporto rigido, ispirata al film Ladyhawke.",
+    "images": [
+      "/images/artworks/ladyhawke.jpeg"
+    ],
+    "cover": "/images/artworks/ladyhawke.jpeg"
+  },
+  {
+    "id": "6",
+    "title": "Chinatown",
+    "subject": "Cinema & Vintage",
+    "availability": "Disponibile",
+    "sizeCategory": "Medio",
+    "orientation": "square",
+    "dimensions": "40 x 40 cm",
+    "price": 260,
+    "priceDisplay": "€ 260",
+    "description": "Opera realizzata con tecnica di collage e assemblaggio su supporto rigido.",
+    "images": [
+      "/images/artworks/chinatown.jpeg"
+    ],
+    "cover": "/images/artworks/chinatown.jpeg"
+  },
+  {
+    "id": "7",
+    "title": "Efficiency Excellency",
+    "subject": "Comics & Supereroi",
+    "availability": "Disponibile",
+    "sizeCategory": "Grande",
+    "orientation": "vertical",
+    "dimensions": "60 x 100 cm",
+    "price": 2300,
+    "priceDisplay": "€ 2.300",
+    "description": "Opera realizzata con tecnica di collage e assemblaggio su supporto rigido.",
+    "images": [
+      "/images/artworks/efficiency-excellency.jpeg"
+    ],
+    "cover": "/images/artworks/efficiency-excellency.jpeg"
+  },
+  {
+    "id": "8",
+    "title": "Pinup",
+    "subject": "Pin-up Art",
+    "availability": "Disponibile",
+    "sizeCategory": "Grande",
+    "orientation": "horizontal",
+    "dimensions": "60 x 120 cm",
+    "price": 2500,
+    "priceDisplay": "€ 2.500",
+    "description": "Opera realizzata con tecnica di collage e assemblaggio su supporto rigido.",
+    "images": [
+      "/images/artworks/pinup.jpeg"
+    ],
+    "cover": "/images/artworks/pinup.jpeg"
+  },
+  {
+    "id": "9",
+    "title": "X1",
+    "subject": "Comics & Supereroi",
+    "availability": "Disponibile",
+    "sizeCategory": "Grande",
+    "orientation": "horizontal",
+    "dimensions": "50 x 70 cm",
+    "price": 1200,
+    "priceDisplay": "€ 1.200",
+    "description": "Opera realizzata con tecnica di collage e assemblaggio su supporto rigido.",
+    "images": [
+      "/images/artworks/x1.jpeg"
+    ],
+    "cover": "/images/artworks/x1.jpeg"
+  },
+  {
+    "id": "10",
+    "title": "Simboli in Piccolo",
+    "subject": "Comics & Supereroi",
+    "availability": "Disponibile",
+    "sizeCategory": "Piccolo",
+    "orientation": "square",
+    "dimensions": "25 x 25 cm",
+    "price": 120,
+    "priceDisplay": "€ 120",
+    "description": "Opera realizzata con tecnica di collage e assemblaggio su supporto rigido.",
+    "images": [
+      "/images/artworks/simboli-piccolo.jpeg"
+    ],
+    "cover": "/images/artworks/simboli-piccolo.jpeg"
+  },
+  {
+    "id": "11",
+    "title": "A10",
+    "subject": "Pin-up Art",
+    "availability": "Disponibile",
+    "sizeCategory": "Medio",
+    "orientation": "square",
+    "dimensions": "50 x 50 cm",
+    "price": 1200,
+    "priceDisplay": "€ 1.200",
+    "description": "Opera realizzata con tecnica di collage e assemblaggio su supporto rigido, ispirata al film Mujeres al borde de un ataque de nervios.",
+    "images": [
+      "/images/artworks/mujeres.jpeg"
+    ],
+    "cover": "/images/artworks/mujeres.jpeg"
+  }
+]
