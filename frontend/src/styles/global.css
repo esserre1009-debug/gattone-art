@@ -296,15 +296,7 @@ img { display: block; max-width: 100%; }
    erano quasi invisibili (grigio chiaro + font thin su sfondo crema, contrasto ~2.3:1).
    Ora: colore --color-label (contrasto ~4.6:1, WCAG AA) + font-weight 500 invece di 300
    + letter-spacing leggermente ridotto per migliorare la leggibilità del font display. */
-.detail-info .spec-item .label {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 0.74rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--color-label);
-  margin-bottom: 6px;
-}
+.detail-info .spec-item .label { font-family: var(--font-display); font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-navy); margin-bottom: 6px; }
 .detail-info .spec-item .value { font-size: 1rem; font-weight: 500; color: var(--color-ink); }
 .detail-info .description { line-height: 1.8; color: var(--color-ink-soft); margin-bottom: 32px; }
 .back-link { font-family: var(--font-display); font-weight: 700; display: inline-block; margin-bottom: 40px; font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-ink-soft); }
