@@ -1,17 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import HeroSlider from '../components/HeroSlider'
 import ArtworkCard from '../components/ArtworkCard'
 import Pagination from '../components/Pagination'
-import { ARTWORKS } from '../data/artworks'
+import { getArtworks } from '../lib/dataClient'
 import { FEATURE_FLAGS } from '../config/flags'
 import { Link } from 'react-router-dom'
 
 const PAGE_SIZE = 14
 
 export default function Home() {
+  const [artworks, setArtworks] = useState([])
   const [page, setPage] = useState(1)
-  const totalPages = Math.max(1, Math.ceil(ARTWORKS.length / PAGE_SIZE))
-  const visible = ARTWORKS.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+
+  useEffect(() => {
+    getArtworks().then(setArtworks)
+  }, [])
+
+  const totalPages = Math.max(1, Math.ceil(artworks.length / PAGE_SIZE))
+  const visible = artworks.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   function goToPage(p) {
     setPage(p)
