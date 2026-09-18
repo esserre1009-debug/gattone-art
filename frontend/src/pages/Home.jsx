@@ -6,7 +6,7 @@ import { ARTWORKS } from '../data/artworks'
 import { FEATURE_FLAGS } from '../config/flags'
 import { Link } from 'react-router-dom'
 
-const PAGE_SIZE = 6
+const PAGE_SIZE = 14
 
 export default function Home() {
   const [page, setPage] = useState(1)
