@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react' 
 import HeroSlider from '../components/HeroSlider'
 import ArtworkCard from '../components/ArtworkCard'
 import Pagination from '../components/Pagination'
