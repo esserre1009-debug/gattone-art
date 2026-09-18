@@ -1,16 +1,22 @@
+import { useState } from 'react'
 import HeroSlider from '../components/HeroSlider'
-import FeaturedGrid from '../components/FeaturedGrid'
-import InstagramFeed from '../components/InstagramFeed'
-import { useArtworks } from '../hooks/useArtworks'
-import { useFlags } from '../hooks/useFlags'
+import ArtworkCard from '../components/ArtworkCard'
+import Pagination from '../components/Pagination'
+import { ARTWORKS } from '../data/artworks'
+import { FEATURE_FLAGS } from '../config/flags'
 import { Link } from 'react-router-dom'
 
-const MAX_FEATURED = 12
+const PAGE_SIZE = 6
 
 export default function Home() {
-  const { artworks, loading } = useArtworks()
-  const flags = useFlags()
-  const featured = artworks.slice(0, MAX_FEATURED)
+  const [page, setPage] = useState(1)
+  const totalPages = Math.max(1, Math.ceil(ARTWORKS.length / PAGE_SIZE))
+  const visible = ARTWORKS.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+
+  function goToPage(p) {
+    setPage(p)
+    document.getElementById('opere-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   return (
     <>
@@ -30,13 +36,22 @@ export default function Home() {
         </div>
       </section>
 
-      {loading ? (
-        <div className="loader-row">Caricamento opere...</div>
-      ) : (
-        <FeaturedGrid artworks={featured} />
-      )}
+      <section className="intro-section" style={{ paddingTop: 0 }} id="opere-section">
+        <div className="container">
+          <div className="section-heading">
+            <div>
+              <h2>Opere in evidenza</h2>
+              <p className="subtitle">Pagina {page} di {totalPages}</p>
+            </div>
+          </div>
+          <div className="artwork-grid masonry">
+            {visible.map((a) => <ArtworkCard key={a.id} artwork={a} masonry />)}
+          </div>
+          <Pagination currentPage={page} totalPages={totalPages} onPageChange={goToPage} />
+        </div>
+      </section>
 
-      {flags.enableBio && (
+      {FEATURE_FLAGS.enableBio && (
         <section className="intro-section">
           <div className="container">
             <h2>Biografia</h2>
@@ -44,8 +59,6 @@ export default function Home() {
           </div>
         </section>
       )}
-
-      {flags.enableInstagramFeed && <InstagramFeed />}
     </>
   )
 }
