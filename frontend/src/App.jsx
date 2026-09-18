@@ -1,3 +1,4 @@
+import ScrollToTop from './components/ScrollToTop'
 import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -8,6 +9,7 @@ import ArtworkDetail from './pages/ArtworkDetail'
 export default function App() {
   return (
     <>
+    <ScrollToTop />
       <Header />
       <main>
         <Routes>
