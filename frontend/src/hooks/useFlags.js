@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { getFlags } from '../lib/dataClient'
 
 const DEFAULT_FLAGS = {
   enableBio: false,
@@ -12,18 +13,7 @@ export function useFlags() {
   useEffect(() => {
     async function loadFlags() {
       try {
-        const res = await fetch('/api/flags', {
-          headers: {
-            Accept: 'application/json',
-          },
-        })
-
-        if (!res.ok) {
-          throw new Error(`Errore caricamento flags: ${res.status}`)
-        }
-
-        const data = await res.json()
-        console.log('Flags ricevuti dal backend:', data)
+        const data = await getFlags()
 
         setFlags({
           enableBio: !!data.enableBio,
