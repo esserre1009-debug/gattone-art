@@ -55,8 +55,8 @@ export default function LinkPage() {
   return (
     <section className="contact-page">
       <div className="container">
-        <div className="contact-layout">
-          <div className="contact-copy">
+        <div className="contact-shell">
+          <div className="contact-heading">
             <p className="contact-kicker">Contatti</p>
             <h1>Resta in contatto</h1>
             <p className="contact-subtitle">
@@ -75,7 +75,7 @@ export default function LinkPage() {
                   type="text"
                   value={form.nome}
                   onChange={handleChange}
-                  placeholder="Inserisci il tuo nome"
+                  placeholder="Inserisci il nome"
                   required
                 />
               </div>
@@ -88,7 +88,7 @@ export default function LinkPage() {
                   type="text"
                   value={form.cognome}
                   onChange={handleChange}
-                  placeholder="Inserisci il tuo cognome"
+                  placeholder="Inserisci il cognome"
                   required
                 />
               </div>
@@ -106,13 +106,15 @@ export default function LinkPage() {
                 />
               </div>
 
-              <button
-                type="submit"
-                className="contact-submit-btn"
-                disabled={loading}
-              >
-                {loading ? 'Invio in corso...' : 'Invia richiesta'}
-              </button>
+              <div className="contact-submit">
+                <button
+                  type="submit"
+                  className="contact-submit-btn"
+                  disabled={loading}
+                >
+                  {loading ? 'Invio in corso...' : 'Invia richiesta'}
+                </button>
+              </div>
 
               {message && <div className="contact-feedback success">{message}</div>}
               {errorMessage && <div className="contact-feedback error">{errorMessage}</div>}
