@@ -12,12 +12,18 @@ export function useFlags() {
   useEffect(() => {
     async function loadFlags() {
       try {
-        const res = await fetch('/api/flags')
+        const res = await fetch('/api/flags', {
+          headers: {
+            Accept: 'application/json',
+          },
+        })
+
         if (!res.ok) {
-          throw new Error('Errore caricamento flags')
+          throw new Error(`Errore caricamento flags: ${res.status}`)
         }
 
         const data = await res.json()
+        console.log('Flags ricevuti dal backend:', data)
 
         setFlags({
           enableBio: !!data.enableBio,
@@ -26,6 +32,7 @@ export function useFlags() {
         })
       } catch (error) {
         console.error('Errore load flags:', error)
+        setFlags(DEFAULT_FLAGS)
       }
     }
 
