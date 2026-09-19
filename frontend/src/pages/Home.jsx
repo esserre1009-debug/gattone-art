@@ -42,7 +42,14 @@ export default function Home() {
             colorate e uniche.
           </p>
 
-          <div style={{ marginTop: 32, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <div
+            style={{
+              marginTop: 32,
+              display: 'flex',
+              gap: 12,
+              flexWrap: 'wrap',
+            }}
+          >
             <Link to="/galleria" className="btn btn-outline">
               Vai al catalogo completo
             </Link>
