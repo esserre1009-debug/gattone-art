@@ -1,16 +1,35 @@
 import { useEffect, useState } from 'react'
-import { getFlags } from '../lib/dataClient'
-import fallbackFlags from '../data/flags.json'
+
+const DEFAULT_FLAGS = {
+  enableBio: false,
+  enableInstagramFeed: false,
+  enableLinkForm: false,
+}
 
 export function useFlags() {
-  const [flags, setFlags] = useState(fallbackFlags)
+  const [flags, setFlags] = useState(DEFAULT_FLAGS)
 
   useEffect(() => {
-    let active = true
-    getFlags().then((data) => {
-      if (active) setFlags(data)
-    })
-    return () => { active = false }
+    async function loadFlags() {
+      try {
+        const res = await fetch('/api/flags')
+        if (!res.ok) {
+          throw new Error('Errore caricamento flags')
+        }
+
+        const data = await res.json()
+
+        setFlags({
+          enableBio: !!data.enableBio,
+          enableInstagramFeed: !!data.enableInstagramFeed,
+          enableLinkForm: !!data.enableLinkForm,
+        })
+      } catch (error) {
+        console.error('Errore load flags:', error)
+      }
+    }
+
+    loadFlags()
   }, [])
 
   return flags
