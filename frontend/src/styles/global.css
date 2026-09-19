@@ -256,29 +256,58 @@ img { display: block; max-width: 100%; }
 
 /* FIX: badge dentro overlay card — sfondo pieno leggibile su gradiente scuro */
 .card-overlay .badge-disponibile {
-  background: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.22);
   color: #fff;
-  border: 1px solid rgba(255,255,255,0.35);
+  border: 1.5px solid rgba(255,255,255,0.5);
+  backdrop-filter: blur(4px);
+  font-weight: 700;
 }
 .card-overlay .badge-riservato {
-  background: rgba(178,34,52,0.7);
+  background: rgba(178,34,52,0.75);
   color: #fff;
-  border: 1px solid rgba(178,34,52,0.5);
+  border: 1.5px solid rgba(178,34,52,0.6);
+  backdrop-filter: blur(4px);
+  font-weight: 700;
 }
 .card-overlay .badge-venduto {
-  background: rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.7);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.8);
+  border: 1.5px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(4px);
+  font-weight: 700;
 }
 .card-overlay .badge-price {
   background: var(--color-gold);
   color: var(--color-navy);
+  font-weight: 700;
+  border: 1.5px solid var(--color-gold-light);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 /* ===== FILTRI ===== */
 .filter-bar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 40px 0; border-bottom: 1px solid var(--color-border); margin-bottom: 48px; }
-/* FIX: "FILTRA PER" ora navy + bold — prima era grigio chiaro quasi invisibile */
-.filter-group-label { font-family: var(--font-display); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-navy); margin-right: 8px; }
+/* FIX: "FILTRA PER" — gold con separatore verticale, distinto dai pill */
+.filter-group-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-right: 12px;
+  position: relative;
+  padding-right: 20px;
+}
+.filter-group-label::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 20px;
+  background: var(--color-border);
+}
 .filter-pill { padding: 10px 20px; border: 1px solid var(--color-border); border-radius: 999px; font-size: 0.82rem; color: var(--color-ink-soft); transition: all var(--transition); background: var(--color-white); }
 .filter-pill:hover { border-color: var(--color-gold); color: var(--color-navy); }
 .filter-pill.active { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-white); }
@@ -340,10 +369,51 @@ img { display: block; max-width: 100%; }
 
 /* ===== PAGINATION ===== */
 .pagination { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 40px 0 20px; flex-wrap: wrap; }
-.pagination-btn { padding: 10px 18px; border: 1px solid var(--color-border); background: var(--color-white); border-radius: 4px; font-size: 0.82rem; font-family: var(--font-display); }
-.pagination-btn:disabled { opacity: 0.35; cursor: not-allowed; }
-.pagination-btn:not(:disabled):hover { border-color: var(--color-gold); color: var(--color-navy); }
+
+/* FIX: Precedente/Successivo — sfondo trasparente, bordo leggero, nettamente diversi dai numeri */
+.pagination-btn {
+  padding: 10px 22px;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-soft);
+  transition: all var(--transition);
+}
+.pagination-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+.pagination-btn:not(:disabled):hover {
+  border-color: var(--color-navy);
+  color: var(--color-navy);
+  background: rgba(20,33,61,0.06);
+}
+
+/* FIX: Numeri pagina — più squadrati, bordo navy pieno, hover invertito */
 .pagination-numbers { display: flex; gap: 8px; }
-.pagination-number { width: 38px; height: 38px; border: 1px solid var(--color-border); background: var(--color-white); border-radius: 4px; font-family: var(--font-display); font-weight: 700; }
-.pagination-number.active { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-white); }
-.pagination-number:hover { border-color: var(--color-gold); }
+.pagination-number {
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--color-navy);
+  background: var(--color-white);
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-navy);
+  transition: all var(--transition);
+}
+.pagination-number.active {
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+  color: var(--color-white);
+  box-shadow: 0 0 0 3px rgba(20,33,61,0.25);
+}
+.pagination-number:not(.active):hover {
+  background: var(--color-navy);
+  color: var(--color-white);
+}
