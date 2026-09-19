@@ -22,7 +22,7 @@ export function useFlags() {
         setFlags({
           enableBio: !!data.enableBio,
           enableInstagramFeed: !!data.enableInstagramFeed,
-          enableLinkForm: !!data.enableLinkForm,
+          enableLinkForm: !!data.enableLinkForm || !!data.enableContact,
         })
       } catch (error) {
         console.error('Errore load flags:', error)
