@@ -1,6 +1,9 @@
 var API = '/api';
 var state = { artworks: [], categories: { subjects: [], availabilities: [], sizeCategories: [] }, flags: {}, hero: [], instagram: {} };
 
+// Traccia se l'ordine è stato modificato ma non ancora salvato
+var sortDirty = false;
+
 document.addEventListener('DOMContentLoaded', function () {
   initTabs();
   initModal();
@@ -9,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initUpload();
   initHero();
   initInstagramConfig();
+  initSortGrid();
   loadAll();
 });
 
@@ -22,6 +26,10 @@ function initTabs() {
       panels.forEach(function (p) { p.classList.remove('active'); });
       var target = document.getElementById('tab-' + btn.dataset.tab);
       if (target) target.classList.add('active');
+      // Aggiorna la griglia di ordinamento quando si apre quel tab
+      if (btn.dataset.tab === 'ordinamento') {
+        renderSortGrid();
+      }
     });
   });
 }
@@ -224,6 +232,275 @@ function deleteArtwork(id) {
   });
 }
 
+// =====================================================================
+// ORDINAMENTO DRAG & DROP
+// =====================================================================
+var dragSrcEl = null;
+
+function initSortGrid() {
+  document.getElementById('btn-save-order').addEventListener('click', saveOrder);
+}
+
+function renderSortGrid() {
+  var grid = document.getElementById('sort-grid');
+  grid.innerHTML = '';
+  sortDirty = false;
+  updateSortUI();
+
+  state.artworks.forEach(function (artwork, index) {
+    var card = document.createElement('div');
+    card.className = 'sort-card';
+    card.draggable = true;
+    card.dataset.id = artwork.id;
+    card.dataset.index = index;
+
+    // Thumbnail
+    var img = document.createElement('div');
+    img.className = 'sort-card-thumb';
+    if (artwork.cover || (artwork.images && artwork.images[0])) {
+      img.style.backgroundImage = 'url(' + (artwork.cover || artwork.images[0]) + ')';
+    } else {
+      img.style.background = '#e6ddc4';
+    }
+    card.appendChild(img);
+
+    // Info
+    var info = document.createElement('div');
+    info.className = 'sort-card-info';
+
+    var pos = document.createElement('span');
+    pos.className = 'sort-card-pos';
+    pos.textContent = (index + 1);
+    info.appendChild(pos);
+
+    var title = document.createElement('span');
+    title.className = 'sort-card-title';
+    title.textContent = artwork.title;
+    info.appendChild(title);
+
+    card.appendChild(info);
+
+    // Drag handle hint
+    var handle = document.createElement('div');
+    handle.className = 'sort-card-handle';
+    handle.innerHTML = '&#9776;';
+    card.appendChild(handle);
+
+    // Drag events
+    card.addEventListener('dragstart', handleDragStart);
+    card.addEventListener('dragover', handleDragOver);
+    card.addEventListener('dragenter', handleDragEnter);
+    card.addEventListener('dragleave', handleDragLeave);
+    card.addEventListener('drop', handleDrop);
+    card.addEventListener('dragend', handleDragEnd);
+
+    // Touch support
+    card.addEventListener('touchstart', handleTouchStart, { passive: false });
+    card.addEventListener('touchmove', handleTouchMove, { passive: false });
+    card.addEventListener('touchend', handleTouchEnd);
+
+    grid.appendChild(card);
+  });
+}
+
+function handleDragStart(e) {
+  dragSrcEl = this;
+  this.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', this.dataset.id);
+}
+
+function handleDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+}
+
+function handleDragEnter(e) {
+  e.preventDefault();
+  this.classList.add('drag-over');
+}
+
+function handleDragLeave() {
+  this.classList.remove('drag-over');
+}
+
+function handleDrop(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  this.classList.remove('drag-over');
+
+  if (dragSrcEl !== this) {
+    var grid = document.getElementById('sort-grid');
+    var cards = Array.from(grid.children);
+    var fromIndex = cards.indexOf(dragSrcEl);
+    var toIndex = cards.indexOf(this);
+
+    // Sposta nell'array state
+    var moved = state.artworks.splice(fromIndex, 1)[0];
+    state.artworks.splice(toIndex, 0, moved);
+
+    // Ri-renderizza
+    renderSortGrid();
+    sortDirty = true;
+    updateSortUI();
+  }
+}
+
+function handleDragEnd() {
+  var cards = document.querySelectorAll('.sort-card');
+  cards.forEach(function (c) {
+    c.classList.remove('dragging');
+    c.classList.remove('drag-over');
+  });
+}
+
+// ---- Touch drag support (mobile) ----
+var touchSrcEl = null;
+var touchClone = null;
+var touchStartY = 0;
+var touchStartX = 0;
+
+function handleTouchStart(e) {
+  touchSrcEl = this;
+  var touch = e.touches[0];
+  touchStartX = touch.clientX;
+  touchStartY = touch.clientY;
+
+  // Creiamo un clone visuale dopo un breve delay per distinguere tap da drag
+  var self = this;
+  this._touchTimeout = setTimeout(function () {
+    self.classList.add('dragging');
+    touchClone = self.cloneNode(true);
+    touchClone.className = 'sort-card-ghost';
+    touchClone.style.width = self.offsetWidth + 'px';
+    document.body.appendChild(touchClone);
+    positionGhost(touch.clientX, touch.clientY);
+  }, 150);
+}
+
+function handleTouchMove(e) {
+  if (!touchSrcEl) return;
+  e.preventDefault();
+  var touch = e.touches[0];
+
+  if (touchClone) {
+    positionGhost(touch.clientX, touch.clientY);
+  }
+
+  // Trova l'elemento sotto il dito
+  if (touchClone) touchClone.style.display = 'none';
+  var target = document.elementFromPoint(touch.clientX, touch.clientY);
+  if (touchClone) touchClone.style.display = '';
+
+  // Risali fino alla .sort-card
+  while (target && !target.classList.contains('sort-card')) {
+    target = target.parentElement;
+  }
+
+  var cards = document.querySelectorAll('.sort-card');
+  cards.forEach(function (c) { c.classList.remove('drag-over'); });
+  if (target && target !== touchSrcEl) {
+    target.classList.add('drag-over');
+  }
+}
+
+function handleTouchEnd(e) {
+  clearTimeout(this._touchTimeout);
+  if (!touchSrcEl) return;
+
+  // Trova dove abbiamo droppato
+  var touch = e.changedTouches[0];
+  if (touchClone) touchClone.style.display = 'none';
+  var target = document.elementFromPoint(touch.clientX, touch.clientY);
+  if (touchClone) {
+    document.body.removeChild(touchClone);
+    touchClone = null;
+  }
+
+  while (target && !target.classList.contains('sort-card')) {
+    target = target.parentElement;
+  }
+
+  if (target && target !== touchSrcEl) {
+    var grid = document.getElementById('sort-grid');
+    var cards = Array.from(grid.children);
+    var fromIndex = cards.indexOf(touchSrcEl);
+    var toIndex = cards.indexOf(target);
+
+    var moved = state.artworks.splice(fromIndex, 1)[0];
+    state.artworks.splice(toIndex, 0, moved);
+    renderSortGrid();
+    sortDirty = true;
+    updateSortUI();
+  }
+
+  var allCards = document.querySelectorAll('.sort-card');
+  allCards.forEach(function (c) {
+    c.classList.remove('dragging');
+    c.classList.remove('drag-over');
+  });
+  touchSrcEl = null;
+}
+
+function positionGhost(x, y) {
+  if (!touchClone) return;
+  touchClone.style.left = (x - 60) + 'px';
+  touchClone.style.top = (y - 40) + 'px';
+}
+
+function updateSortUI() {
+  var btn = document.getElementById('btn-save-order');
+  var status = document.getElementById('sort-status');
+  btn.disabled = !sortDirty;
+  status.textContent = sortDirty ? 'Modifiche non salvate' : '';
+  status.className = 'sort-status' + (sortDirty ? ' unsaved' : '');
+}
+
+function saveOrder() {
+  var btn = document.getElementById('btn-save-order');
+  var status = document.getElementById('sort-status');
+  btn.disabled = true;
+  status.textContent = 'Salvataggio...';
+  status.className = 'sort-status';
+
+  var payload = state.artworks.map(function (a, idx) {
+    return { id: a.id, sortOrder: idx };
+  });
+
+  fetch(API + '/artworks/reorder', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data.success) {
+        sortDirty = false;
+        status.textContent = 'Ordinamento salvato!';
+        status.className = 'sort-status saved';
+        // Aggiorna sortOrder locale
+        state.artworks.forEach(function (a, idx) { a.sortOrder = idx; });
+        renderSortGrid();
+        setTimeout(function () {
+          status.textContent = '';
+          status.className = 'sort-status';
+        }, 2500);
+      } else {
+        status.textContent = 'Errore: ' + (data.error || 'sconosciuto');
+        status.className = 'sort-status unsaved';
+        btn.disabled = false;
+      }
+    })
+    .catch(function () {
+      status.textContent = 'Errore di rete.';
+      status.className = 'sort-status unsaved';
+      btn.disabled = false;
+    });
+}
+
+// =====================================================================
+// CATEGORIE
+// =====================================================================
 function renderCategoryLists() {
   renderTagList('list-subjects', state.categories.subjects, 'subjects');
   renderTagList('list-availabilities', state.categories.availabilities, 'availabilities');

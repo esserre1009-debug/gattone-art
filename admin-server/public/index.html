@@ -12,6 +12,7 @@
 
 <nav class="admin-tabs">
   <button class="tab-btn active" data-tab="opere">Opere</button>
+  <button class="tab-btn" data-tab="ordinamento">Ordinamento</button>
   <button class="tab-btn" data-tab="hero">Hero Slider</button>
   <button class="tab-btn" data-tab="categorie">Categorie</button>
   <button class="tab-btn" data-tab="impostazioni">Impostazioni</button>
@@ -37,6 +38,19 @@
       </thead>
       <tbody id="artworks-tbody"></tbody>
     </table>
+  </section>
+
+  <!-- ===== TAB ORDINAMENTO ===== -->
+  <section id="tab-ordinamento" class="tab-panel">
+    <div class="panel-header">
+      <h2>Ordinamento Galleria</h2>
+      <div class="sort-actions">
+        <span id="sort-status" class="sort-status"></span>
+        <button id="btn-save-order" class="btn btn-primary" disabled>Salva ordinamento</button>
+      </div>
+    </div>
+    <p class="hint">Trascina le opere per riordinare. L'ordine vale sia per la Home che per la Galleria. Clicca "Salva ordinamento" per confermare.</p>
+    <div id="sort-grid" class="sort-grid"></div>
   </section>
 
   <section id="tab-hero" class="tab-panel">
