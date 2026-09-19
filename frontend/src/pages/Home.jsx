@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react' 
+import { useState, useEffect } from 'react'
 import HeroSlider from '../components/HeroSlider'
 import ArtworkCard from '../components/ArtworkCard'
 import Pagination from '../components/Pagination'
+import InstagramFeed from '../components/InstagramFeed'
 import { getArtworks } from '../lib/dataClient'
-import { FEATURE_FLAGS } from '../config/flags'
+import { useFlags } from '../hooks/useFlags'
 import { Link } from 'react-router-dom'
 
 const PAGE_SIZE = 14
@@ -11,6 +12,7 @@ const PAGE_SIZE = 14
 export default function Home() {
   const [artworks, setArtworks] = useState([])
   const [page, setPage] = useState(1)
+  const flags = useFlags()
 
   useEffect(() => {
     getArtworks().then(setArtworks)
@@ -57,7 +59,9 @@ export default function Home() {
         </div>
       </section>
 
-      {FEATURE_FLAGS.enableBio && (
+      {flags.enableInstagramFeed && <InstagramFeed />}
+
+      {flags.enableBio && (
         <section className="intro-section">
           <div className="container">
             <h2>Biografia</h2>
