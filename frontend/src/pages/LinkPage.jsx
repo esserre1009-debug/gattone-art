@@ -35,15 +35,15 @@ export default function LinkPage() {
 
     if (error) {
       if (error.code === '23505') {
-        setErrorMessage('Questa email è già registrata.')
+        setErrorMessage('Questa email risulta già registrata.')
       } else {
-        setErrorMessage('Errore durante il salvataggio. Riprova.')
+        setErrorMessage('Si è verificato un errore durante l’invio. Riprova.')
       }
       setLoading(false)
       return
     }
 
-    setMessage('Richiesta inviata correttamente. Grazie!')
+    setMessage('Richiesta inviata correttamente. Grazie.')
     setForm({
       nome: '',
       cognome: '',
@@ -55,19 +55,19 @@ export default function LinkPage() {
   return (
     <section className="contact-page">
       <div className="container">
-        <div className="contact-hero">
-          <p className="contact-eyebrow">Contatti</p>
-          <h1>Resta in contatto</h1>
-          <p className="contact-intro">
-            Compila il form per ricevere aggiornamenti, novità sulle opere
-            e informazioni sui lavori disponibili.
-          </p>
-        </div>
+        <div className="contact-layout">
+          <div className="contact-copy">
+            <p className="contact-kicker">Contatti</p>
+            <h1>Resta in contatto</h1>
+            <p className="contact-subtitle">
+              Compila il form per ricevere aggiornamenti, novità sulle opere e
+              informazioni sui lavori disponibili.
+            </p>
+          </div>
 
-        <div className="contact-card">
-          <form onSubmit={handleSubmit} className="contact-form">
-            <div className="contact-grid">
-              <div className="form-field">
+          <div className="contact-card">
+            <form onSubmit={handleSubmit} className="contact-form">
+              <div className="contact-field">
                 <label htmlFor="nome">Nome</label>
                 <input
                   id="nome"
@@ -75,12 +75,12 @@ export default function LinkPage() {
                   type="text"
                   value={form.nome}
                   onChange={handleChange}
-                  placeholder="Inserisci il nome"
+                  placeholder="Inserisci il tuo nome"
                   required
                 />
               </div>
 
-              <div className="form-field">
+              <div className="contact-field">
                 <label htmlFor="cognome">Cognome</label>
                 <input
                   id="cognome"
@@ -88,34 +88,36 @@ export default function LinkPage() {
                   type="text"
                   value={form.cognome}
                   onChange={handleChange}
-                  placeholder="Inserisci il cognome"
+                  placeholder="Inserisci il tuo cognome"
                   required
                 />
               </div>
-            </div>
 
-            <div className="form-field">
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder="Inserisci la tua email"
-                required
-              />
-            </div>
+              <div className="contact-field">
+                <label htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="Inserisci la tua email"
+                  required
+                />
+              </div>
 
-            <div className="contact-actions">
-              <button type="submit" className="btn btn-primary" disabled={loading}>
-                {loading ? 'Invio...' : 'Invia richiesta'}
+              <button
+                type="submit"
+                className="contact-submit-btn"
+                disabled={loading}
+              >
+                {loading ? 'Invio in corso...' : 'Invia richiesta'}
               </button>
-            </div>
 
-            {message && <div className="form-message success">{message}</div>}
-            {errorMessage && <div className="form-message error">{errorMessage}</div>}
-          </form>
+              {message && <div className="contact-feedback success">{message}</div>}
+              {errorMessage && <div className="contact-feedback error">{errorMessage}</div>}
+            </form>
+          </div>
         </div>
       </div>
     </section>
