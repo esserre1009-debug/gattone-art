@@ -34,7 +34,11 @@ export default function LinkPage() {
     ])
 
     if (error) {
-      setErrorMessage('Errore durante il salvataggio. Riprova.')
+      if (error.code === '23505') {
+        setErrorMessage('Questa email è già registrata.')
+      } else {
+        setErrorMessage('Errore durante il salvataggio. Riprova.')
+      }
       setLoading(false)
       return
     }
