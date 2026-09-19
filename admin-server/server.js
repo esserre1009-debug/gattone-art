@@ -17,16 +17,12 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   process.exit(1);
 }
 
-// Client Supabase con SERVICE ROLE KEY: bypassa le RLS, va usato SOLO qui
-// (server locale), mai esposto al frontend pubblico.
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 });
 
 const ALLOWED_FOLDERS = ['artworks', 'hero'];
 
-// Upload in memoria: il file va poi caricato su Supabase Storage,
-// non più salvato su disco locale.
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 15 * 1024 * 1024 },
@@ -138,6 +134,36 @@ app.get('/api/artworks', async function (req, res) {
   }
 });
 
+// -----------------------------------------------------------------------
+// REORDER — riceve array di { id, sortOrder } e aggiorna in batch
+// (DEVE stare prima di /api/artworks/:id altrimenti Express matcha "reorder" come :id)
+// -----------------------------------------------------------------------
+app.put('/api/artworks/reorder', async function (req, res) {
+  try {
+    var items = req.body;
+    if (!Array.isArray(items) || items.length === 0) {
+      res.status(400).json({ error: 'Payload deve essere un array di { id, sortOrder }' });
+      return;
+    }
+
+    var promises = items.map(function (item) {
+      return supabase
+        .from('artworks')
+        .update({ sort_order: item.sortOrder })
+        .eq('id', String(item.id));
+    });
+
+    var results = await Promise.all(promises);
+    var firstError = results.find(function (r) { return r.error; });
+    if (firstError && firstError.error) throw firstError.error;
+
+    res.json({ success: true, updated: items.length });
+  } catch (err) {
+    console.error('Errore reorder:', err);
+    res.status(500).json({ error: 'Errore aggiornamento ordinamento' });
+  }
+});
+
 app.post('/api/artworks', async function (req, res) {
   try {
     const { data: existing, error: readError } = await supabase.from('artworks').select('id, sort_order');
@@ -195,7 +221,6 @@ app.delete('/api/artworks/:id', async function (req, res) {
 
 // -----------------------------------------------------------------------
 // SETTINGS generici: categories, flags, hero, instagram
-// (memorizzati in app_settings come chiave/valore JSON)
 // -----------------------------------------------------------------------
 async function getSetting(key) {
   const { data, error } = await supabase
@@ -298,7 +323,7 @@ app.put('/api/instagram', async function (req, res) {
 });
 
 // -----------------------------------------------------------------------
-// EXPORT (backup manuale in JSON, utile per versionare/ripristinare)
+// EXPORT
 // -----------------------------------------------------------------------
 app.get('/api/export/artworks', async function (req, res) {
   try {
